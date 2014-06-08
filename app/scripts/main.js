@@ -4,47 +4,51 @@
 var Photo = Backbone.Model.extend({
   
 	defaults: {
-			position: ''
+			url: '',
+			name: '',
+			position: '',
+			squadNumber: '',
+			clubTeam: ''
 	},
 
-  idAttribute: "_id"
-});
+		idAttribute: "_id"
+	});
 
 // Collection
 var PhotoCollection = Backbone.Collection.extend({
-  model: Photo,
-  url: 'http://tiny-pizza-server.herokuapp.com/collections/WHC-Picture-Gallery'
+	model: Photo,
+	url: 'http://tiny-pizza-server.herokuapp.com/collections/WHC-Picture-Gallery'
 });
 
 // Thumbnail View
 var ThumbnailView = Backbone.View.extend({
 
-  className: 'thumbnail',
+	className: 'thumbnail',
 
-  template: _.template($('.thumbnail-template').text()),
+	template: _.template($('.thumbnail-template').text()),
 
-  events: {
-    "click" : "showDetailView"
-  },
+	events: {
+		"click" : "showDetailView"
+	},
 
-  initialize: function(){
+	initialize: function(){
 
-    this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'change', this.render);
 
-    $('.thumbnails-container').append(this.el);
-    this.render();
-  },
+		$('.thumbnails-container').append(this.el);
+		this.render();
+	},
 
-  render: function(){
-    var renderedTemplate = this.template(this.model.attributes)
-    this.$el.html(renderedTemplate)
-  },
+	render: function(){
+		var renderedTemplate = this.template(this.model.attributes);
+		this.$el.html(renderedTemplate);
+	},
 
-  showDetailView: function(){
-    console.log('should render a new DetailView')
-    detailViewInstance.remove();
-    detailViewInstance = new DetailView({model: this.model})
-  }
+	showDetailView: function(){
+		console.log('should render a new DetailView');
+		detailViewInstance.remove();
+		detailViewInstance = new DetailView({model: this.model});
+	}
 
 
 
@@ -53,61 +57,71 @@ var ThumbnailView = Backbone.View.extend({
 // Detail View
 var DetailView = Backbone.View.extend({
 
-  className: 'detail-view',
+	className: 'detail-view',
 
-  template: _.template($('.detail-view-template').text()),
+	template: _.template($('.detail-view-template').text()),
 
-  events: {
-    "click .save-button": "updateModel",
-    "click .new-button": "createPhoto"
-  },
+	events: {
+		"click .save-button"	: "updateModel",
+		"click .new-button"		: "createPhoto",
+		"click .delete-button"  : "destroy"
+	},
 
-  initialize: function(){
-    this.listenTo(photos, 'add', function(photo){
-      new ThumbnailView({model: photo})
-    })
+	initialize: function(){
+		this.listenTo(photos, 'add', function(photo){
+			new ThumbnailView({model: photo});
+		});
 
-    this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'change', this.render);
 
-    $('.detail-container').append(this.el);
-    this.render();
-  },
+		$('.detail-container').append(this.el);
+		this.render();
+	},
 
-  render: function(){
+	render: function(){
 
-    var renderedTemplate = this.template(this.model.attributes);
-    this.$el.html(renderedTemplate)
-    return this;
-  },
+		var renderedTemplate = this.template(this.model.attributes);
+		this.$el.html(renderedTemplate);
+		return this;
+	},
 
-  updateModel: function(){
+	updateModel: function(){
 
-    var that = this;
+		var that = this;
 
-    this.model.set({
-      url:      this.$el.find('.url-input').val(),
-      position:  this.$el.find('.position-input').val()
-    });
+		this.model.set({
+			url:      		this.$el.find('.url-input').val(),
+			name:  			this.$el.find('.name-input').val(),
+			position:  		this.$el.find('.position-input').val(),
+			squadNumber:  	this.$el.find('.squadNumber-input').val(),
+			clubTeam:  		this.$el.find('.clubTeam-input').val()
+		});
 
-    photos.add(this.model)
+		photos.add(this.model)
 
     // this.model.save().done(function(){
     //   that.$el.find('.status').html('Saved!')
     // })
 
-    $('.position-input').val('');
-  },
+		$('.position-input').val('');
+	},
 
-  createPhoto: function(){
+  // createPhoto: function(){
 
-    var photoInstance = new Photo();
+  //   var photoInstance = new Photo();
 
-    this.model = photoInstance
+  //   this.model = photoInstance
 
-    this.$el.find('input').val('');
-    this.$el.find('img').attr('src',' http://placehold.it/350x400');
+  //   this.$el.find('input').val('');
+  //   this.$el.find('img').attr('src',' http://placehold.it/350x400');
 
-  }
+  // },
+
+	destroy: function(){
+		this.model.destroy();
+		this.remove();
+	},
+
 });
 
 // Create New Instances
@@ -116,11 +130,11 @@ var detailViewInstance;
 
 
 photos.fetch().done(function(){
-  photos.each(function(photo){
+	photos.each(function(photo){
 
-    new ThumbnailView({model: photo});
+		new ThumbnailView({model: photo});
 
-  })
+	});
 
-  detailViewInstance = new DetailView({ model: photos.first() })
-})
+	detailViewInstance = new DetailView({ model: photos.first() });
+});

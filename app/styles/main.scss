@@ -81,16 +81,16 @@ body {
     //     display: inline-block;
     // }
 
-    .new-button {
-        background: purple;
-        color: white;
-        border: 1px solid green;
-        font-size: 20px;
-        box-shadow: inset 0 0 0 1px white;
-        cursor: pointer;
-        padding: 10px 30px;
-        display: inline-block;
-    }
+    // .new-button {
+    //     background: purple;
+    //     color: white;
+    //     border: 1px solid green;
+    //     font-size: 20px;
+    //     box-shadow: inset 0 0 0 1px white;
+    //     cursor: pointer;
+    //     padding: 10px 30px;
+    //     display: inline-block;
+    // }
 }
 
 hr {
@@ -143,6 +143,48 @@ input {
 
     &:hover {
         background: #d0043c;
+        color: white;
+        box-shadow: none;
+    }
+}
+
+.new-button {
+    float: right;
+    height: 35px;
+    width: 104px;
+    margin-top: 5px;
+    // right: 0;
+    background: green;
+    // box-shadow: inset 0 0 0 1px #014b96;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 10px 34px;
+    display: inline-block;
+
+    &:hover {
+        background: #d0043c;
+        color: white;
+        box-shadow: none;
+    }
+}
+
+.delete-button {
+    height: 35px;
+    width: 150px;
+    margin-top: 20px;
+    margin-left: 25%;
+    // right: 0;
+    background: #d0043c;
+    // box-shadow: inset 0 0 0 1px #014b96;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 10px 10px 10px 16px;
+    display: inline-block;
+
+    &:hover {
+        background: #014b96;
         color: white;
         box-shadow: none;
     }
