@@ -99,9 +99,9 @@ var DetailView = Backbone.View.extend({
 
 		photos.add(this.model)
 
-    // this.model.save().done(function(){
-    //   that.$el.find('.status').html('Saved!')
-    // })
+    this.model.save().done(function(){
+      that.$el.find('.status').html('Saved!')
+    })
 
 		$('.position-input').val('');
 	},
