@@ -36,22 +36,79 @@
         <script type="text/template" class="detail-view-template">
             <img src="<%= url %>">
             <hr />
-            <input class="url-input" value="<%= url %>" placeholder="Edit Player's Photo">
-            <div class="save-button">SAVE</div>
-            <input class="name-input" value="<%= name %>" placeholder="Enter Player's Name">
-            <div class="save-button">SAVE</div>
-            <input class="position-input" value="<%= position %>" placeholder="Enter Player's Position">
-            <div class="save-button">SAVE</div>
-            <input class="squadNumber-input" value="<%= squadNumber %>" placeholder="Enter Player's Squad Number">
-            <div class="save-button">SAVE</div>
-            <input class="clubTeam-input" value="<%= clubTeam %>" placeholder="Enter Player's Club Team">
-            <div class="save-button">SAVE</div>
-            <input class="url-input" value="<%= url %>" placeholder="Enter Player's Club Team">
-            <div class="new-button">NEW</div>
+            
+            <div class="tabbed-area cur-nav-fix">
+                
+                <div class="box-wrap">
+                
+                    <div id="box-four">
+                        
+                        <ul>
+                            <li>this is a test. player info would normally be pulled and displayed here.</li>
+                            <li>not sure where that small glitch in alignment is coming from in the tabs.</li>
+                            <li>Name: Tim Howard</li>
+                            <li>Position: Goalkeeper</li>
+                            <li>Squad Number: 1</li>
+                            <li>Club Team: Everton F.C.</li>
+                        </ul>
+                      
+                        <ul class="tabs group">
+                            <li class="cur"><a href="#box-four">PLAYER</a></li>
+                            <li><a href="#box-five">EDIT</a></li>
+                            <li><a href="#box-six">ADD NEW</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div id="box-five">
 
-            <div>
-                <div class="delete-button">REMOVE PLAYER</div>
+                        <input class="url-input" value="<%= url %>" placeholder="Edit Player's Photo">
+                        <span class="save-button">SAVE</span>
+                        <input class="name-input" value="<%= name %>" placeholder="Enter Player's Name">
+                        <span class="save-button">SAVE</span>
+                        <input class="position-input" value="<%= position %>" placeholder="Enter Player's Position">
+                        <span class="save-button">SAVE</span>
+                        <input class="squadNumber-input" value="<%= squadNumber %>" placeholder="Enter Player's Squad Number">
+                        <span class="save-button">SAVE</span>
+                        <input class="clubTeam-input" value="<%= clubTeam %>" placeholder="Enter Player's Club Team">
+                        <span class="save-button">SAVE</span>
+
+                        <span class="delete-button">REMOVE PLAYER</span>
+
+                        <ul class="tabs group">
+                            <li><a href="#box-four">PLAYER</a></li>
+                            <li class="cur"><a href="#box-five">EDIT</a></li>
+                            <li><a href="#box-six">ADD NEW</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div id="box-six">
+                        
+                        <input class="url-input" value="<%= url %>" placeholder="Edit Player's Photo">
+                        <span class="save-button">SAVE</span>
+                        <input class="name-input" value="<%= name %>" placeholder="Enter Player's Name">
+                        <span class="save-button">SAVE</span>
+                        <input class="position-input" value="<%= position %>" placeholder="Enter Player's Position">
+                        <span class="save-button">SAVE</span>
+                        <input class="squadNumber-input" value="<%= squadNumber %>" placeholder="Enter Player's Squad Number">
+                        <span class="save-button">SAVE</span>
+                        <input class="clubTeam-input" value="<%= clubTeam %>" placeholder="Enter Player's Club Team">
+                        <span class="save-button">SAVE</span>
+
+                        <span class="new-button">ADD PLAYER</span>
+                    
+                        <ul class="tabs group">
+                            <li><a href="#box-four">PLAYER</a></li>
+                            <li><a href="#box-five">EDIT</a></li>
+                            <li class="cur"><a href="#box-six">ADD NEW</a></li>
+                        </ul>
+                    </div>
+                
+                </div>
+            
             </div>
+
+
+
         </script>
 
 
