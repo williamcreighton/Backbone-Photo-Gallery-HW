@@ -20,96 +20,111 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="header">
+        <nav>
+            <a href="/#">
             <img src="http://www.ussoccer.com/~/media/images/upload/ussoccerlogo.png?w=78&amp;h=91" alt="US Soccer" width="68" height="79" class="logo">
-        </div>
+            </a>
+        </nav>
 
         <div class="container">
             <div class="detail-container"></div>
             <div class="thumbnails-container"></div>
         </div>
 
+        <!-- <footer>
+            <a href="/#">
+            <img src="http://www.ussoccer.com/~/media/images/upload/ussoccerlogo.png?w=78&amp;h=91" alt="US Soccer" width="68" height="79" class="logo">
+            </a>
+        </footer> -->
+
+        
         <script type="text/template" class="thumbnail-template">
-            <img src="<%= url %>">
+            
+            <a href="#photo/<%= _id %>"><img src="<%= url %>"></a>
+
         </script>
 
+        
         <script type="text/template" class="detail-view-template">
-            <img src="<%= url %>">
+            
+            <a href="<%= url %>">
+              <img class="img.thumbnail" src="<%= url %>">
+            </a>
+            
             <hr />
             
-            <div class="tabbed-area cur-nav-fix">
+            <div class="tabs">
                 
-                <div class="box-wrap">
-                
-                    <div id="box-four">
-                        
+               <div class="tab">
+                   <input type="radio" id="tab-1" name="tab-group-1" checked>
+                   <label for="tab-1">PLAYER</label>
+                   
+                    <div class="content">
                         <ul>
-                            <li>this is a test. player info would normally be pulled and displayed here.</li>
-                            <li>not sure where that small glitch in alignment is coming from in the tabs.</li>
-                            <li>Name: Tim Howard</li>
-                            <li>Position: Goalkeeper</li>
-                            <li>Squad Number: 1</li>
-                            <li>Club Team: Everton F.C.</li>
+                            <li><h2><%= name %></h2></li>
+                            <li>Position: <%= position %></li>
+                            <li>Squad Number: <%= squadNumber %></li>
+                            <li>Club Team: <%= clubTeam %></li>
                         </ul>
-                      
-                        <ul class="tabs group">
-                            <li class="cur"><a href="#box-four">PLAYER</a></li>
-                            <li><a href="#box-five">EDIT</a></li>
-                            <li><a href="#box-six">ADD NEW</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div id="box-five">
-
-                        <input class="url-input" value="<%= url %>" placeholder="Edit Player's Photo">
-                        <span class="save-button">SAVE</span>
-                        <input class="name-input" value="<%= name %>" placeholder="Enter Player's Name">
-                        <span class="save-button">SAVE</span>
-                        <input class="position-input" value="<%= position %>" placeholder="Enter Player's Position">
-                        <span class="save-button">SAVE</span>
-                        <input class="squadNumber-input" value="<%= squadNumber %>" placeholder="Enter Player's Squad Number">
-                        <span class="save-button">SAVE</span>
-                        <input class="clubTeam-input" value="<%= clubTeam %>" placeholder="Enter Player's Club Team">
-                        <span class="save-button">SAVE</span>
-
-                        <span class="delete-button">REMOVE PLAYER</span>
-
-                        <ul class="tabs group">
-                            <li><a href="#box-four">PLAYER</a></li>
-                            <li class="cur"><a href="#box-five">EDIT</a></li>
-                            <li><a href="#box-six">ADD NEW</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div id="box-six">
+                    </div> 
+               </div>
+                
+               <div class="tab">
+                   <input type="radio" id="tab-2" name="tab-group-1">
+                   <label for="tab-2">EDIT PLAYER</label>
+                   
+                    <div class="content">
+                       
+                    <div id="edit-player" class="updatePhotoModel">
                         
-                        <input class="url-input" value="<%= url %>" placeholder="Edit Player's Photo">
-                        <span class="save-button">SAVE</span>
+                        <input class="url-input" value="<%= url %>" placeholder="Edit Player's Photo URL">
                         <input class="name-input" value="<%= name %>" placeholder="Enter Player's Name">
-                        <span class="save-button">SAVE</span>
                         <input class="position-input" value="<%= position %>" placeholder="Enter Player's Position">
-                        <span class="save-button">SAVE</span>
                         <input class="squadNumber-input" value="<%= squadNumber %>" placeholder="Enter Player's Squad Number">
-                        <span class="save-button">SAVE</span>
                         <input class="clubTeam-input" value="<%= clubTeam %>" placeholder="Enter Player's Club Team">
-                        <span class="save-button">SAVE</span>
+
+                        <div>
+                            <span class="save-button">SAVE</span>
+                            <span class="delete-button">DELETE</span>
+                        </div>
+
+                    </div>
+                       
+                    </div> 
+               </div>
+                
+                <div class="tab">
+                   <input type="radio" id="tab-3" name="tab-group-1">
+                   <label for="tab-3">ADD PLAYER</label>
+                 
+                   <div class="content">
+
+                   <div id="edit-player" class="createNewPhotoModel">
+                       
+                        <input class="url-input" value="<%= url %>" placeholder="Edit Player's Photo URL">
+                        <input class="name-input" value="<%= name %>" placeholder="Enter Player's Name">
+                        <input class="position-input" value="<%= position %>" placeholder="Enter Player's Position">
+                        <input class="squadNumber-input" value="<%= squadNumber %>" placeholder="Enter Player's Squad Number">
+                        <input class="clubTeam-input" value="<%= clubTeam %>" placeholder="Enter Player's Club Team">
 
                         <span class="new-button">ADD PLAYER</span>
-                    
-                        <ul class="tabs group">
-                            <li><a href="#box-four">PLAYER</a></li>
-                            <li><a href="#box-five">EDIT</a></li>
-                            <li class="cur"><a href="#box-six">ADD NEW</a></li>
-                        </ul>
-                    </div>
+                          
+                   </div>
+
+                   </div>
+
+               </div>
                 
-                </div>
-            
             </div>
+                   
+                    
+                    
+
+        </script> 
+
+        
 
 
-
-        </script>
 
 
         <!-- build:js scripts/vendor.js -->
@@ -131,7 +146,11 @@
         </script>
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="scripts/main.js"></script>
+        <script src="scripts/photo-model.js"></script>
+        <script src="scripts/thumbnail-grid-view.js"></script>
+        <script src="scripts/photo-detail-view.js"></script>
+        <script src="scripts/router.js"></script>
+        <script src="scripts/photo-main.js"></script>
         <!-- endbuild -->
 </body>
 </html>

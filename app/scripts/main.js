@@ -103,30 +103,59 @@ var DetailView = Backbone.View.extend({
       that.$el.find('.status').html('Saved!')
     })
 
-		$('.position-input').val('');
+	// $('.position-input').val('');
+	
 	},
 
-  // createPhoto: function(){
+  	// createPhoto: function(){
 
-  //   var photoInstance = new Photo();
+   //  	var photoInstance = new Photo();
 
-  //   this.model = photoInstance
+   //  	this.model = photoInstance
 
-  //   this.$el.find('input').val('');
-  //   this.$el.find('img').attr('src',' http://placehold.it/350x400');
+	  //   this.$el.find('input').val('');
+	  //   this.$el.find('img').attr('src',' http://placehold.it/334x226');
 
-  // },
+  	// },
+
+  	createPhoto: function(){
+
+		var renderedTemplate = this.templateEdit(this.model.attributes);
+		this.$el.html(renderedTemplate);
+
+		var photoInstance = new Photo();
+		this.model = photoInstance;
+
+		this.$el.find('input').val('');
+		this.$el.find('.main-image').attr('src',' http://placehold.it/334x226');
+	},
 
 	destroy: function(){
-		this.model.destroy();
-		this.remove();
+
+		this.model.destroy().done(function(){
+			thumbnailViewInstance.remove();
+			detailViewInstance.remove();
+			detailViewInstance = new DetailView({model: photos.first()})
+		});
+
+		// var renderedTemplate = this.templateEdit(this.model.attributes);
+		// this.$el.html(renderedTemplate);
+		// this.$el.find('.main-display-image').html();
 	},
+
+	// destroy: function(){
+	// 	this.model.destroy();
+	// 	this.remove();
+	// },
 
 });
 
 // Create New Instances
 var photos = new PhotoCollection();
 var detailViewInstance;
+
+// var router = new appRouter();
+// Backbone.history.start();
 
 
 photos.fetch().done(function(){
