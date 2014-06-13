@@ -1,9 +1,13 @@
 // Model
 
+'use strict';
+
+console.log('Model and Collection Script Loaded');
+
 var Photo = Backbone.Model.extend({
   
 	defaults: {
-			url: 'http://placehold.it/334x226',
+			url: '',
 			name: '',
 			position: '',
 			squadNumber: '',

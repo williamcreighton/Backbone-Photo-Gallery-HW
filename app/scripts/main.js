@@ -1,169 +1,183 @@
-"use strict";
-
 // Model
+
+'use strict';
+
+console.log('models loaded');
+
 var Photo = Backbone.Model.extend({
   
-	defaults: {
-			url: '',
-			name: '',
-			position: '',
-			squadNumber: '',
-			clubTeam: ''
-	},
+    defaults: {
+            url: '',
+            name: '',
+            position: '',
+            squadNumber: '',
+            clubTeam: ''
+        },
 
-		idAttribute: "_id"
-	});
+        idAttribute: '_id'
+    });
 
 // Collection
+
 var PhotoCollection = Backbone.Collection.extend({
-	model: Photo,
-	url: 'http://tiny-pizza-server.herokuapp.com/collections/WHC-Picture-Gallery'
+    model: Photo,
+    url: 'http://tiny-pizza-server.herokuapp.com/collections/WHC-Picture-Gallery'
 });
 
-// Thumbnail View
+
+// Thumbnail Grid View
+
+console.log('thumbnail view script loaded');
+
 var ThumbnailView = Backbone.View.extend({
 
-	className: 'thumbnail',
+    className: 'thumbnail',
 
-	template: _.template($('.thumbnail-template').text()),
+    template: _.template($('.thumbnail-template').text()),
 
-	events: {
-		"click" : "showDetailView"
-	},
+    events: {
+        'click' : 'showDetailView',
+    },
 
-	initialize: function(){
+    initialize: function(){
 
-		this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'destroy', this.remove);
 
-		$('.thumbnails-container').append(this.el);
-		this.render();
-	},
+        $('.thumbnails-container').append(this.el);
+        this.render();
+    },
 
-	render: function(){
-		var renderedTemplate = this.template(this.model.attributes);
-		this.$el.html(renderedTemplate);
-	},
+    render: function(){
+        var renderedTemplate = this.template(this.model.attributes);
+        this.$el.html(renderedTemplate);
+    },
 
-	showDetailView: function(){
-		console.log('should render a new DetailView');
-		detailViewInstance.remove();
-		detailViewInstance = new DetailView({model: this.model});
-	}
-
-
+    showDetailView: function(){
+        detailViewInstance.remove();
+        detailViewInstance = new DetailView({model: this.model});
+    }
 
 });
+
 
 // Detail View
+
+console.log('photo detail view script loaded');
+
 var DetailView = Backbone.View.extend({
 
-	className: 'detail-view',
+    className: 'detail-view',
 
-	template: _.template($('.detail-view-template').text()),
+    template: _.template($('.detail-view-template').text()),
 
-	events: {
-		"click .save-button"	: "updateModel",
-		"click .new-button"		: "createPhoto",
-		"click .delete-button"  : "destroy"
-	},
+    events: {
+        'click .save-button'    : 'updatePhotoModel',
+        'click .delete-button'  : 'deletePhotoModel',
+        'click .new-button'     : 'createNewPhoto',
+        'click .add-player'     : 'clearPlayerInputValues'
+    },
 
-	initialize: function(){
-		this.listenTo(photos, 'add', function(photo){
-			new ThumbnailView({model: photo});
-		});
+    initialize: function(){
+        this.listenTo(this.model, 'add', function(photo){
+            new ThumbnailView({model: photo});
+        });
 
-		this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'add', function(photo){
+            new Photo({model: photo});
+        });
 
-		$('.detail-container').append(this.el);
-		this.render();
-	},
+        this.listenTo(this.model, 'change', this.render);
 
-	render: function(){
+        $('.detail-container').append(this.el);
+        this.render();
+    },
 
-		var renderedTemplate = this.template(this.model.attributes);
-		this.$el.html(renderedTemplate);
-		return this;
-	},
+    render: function(){
 
-	updateModel: function(){
+        var renderedTemplate = this.template(this.model.attributes);
+        this.$el.html(renderedTemplate);
+        return this;
+    },
 
-		var that = this;
+    updatePhotoModel: function(){
 
-		this.model.set({
-			url:      		this.$el.find('.url-input').val(),
-			name:  			this.$el.find('.name-input').val(),
-			position:  		this.$el.find('.position-input').val(),
-			squadNumber:  	this.$el.find('.squadNumber-input').val(),
-			clubTeam:  		this.$el.find('.clubTeam-input').val()
-		});
+        // var that = this;
 
-		photos.add(this.model)
+        this.model.set({
+            url:          this.$el.find('.url-input').val(),
+            name:         this.$el.find('.name-input').val(),
+            position:     this.$el.find('.position-input').val(),
+            squadNumber:  this.$el.find('.squadNumber-input').val(),
+            clubTeam:     this.$el.find('.clubTeam-input').val()
+        });
 
-    this.model.save().done(function(){
-      that.$el.find('.status').html('Saved!')
-    })
+        photos.add(this.model);
 
-	// $('.position-input').val('');
-	
-	},
+        this.model.save().done(function(){
 
-  	// createPhoto: function(){
+        });
+    },
 
-   //  	var photoInstance = new Photo();
+    deletePhotoModel: function(){
+        
+        this.model.destroy();
+        this.remove();
+        window.detailViewInstance = new DetailView({model: photos.first()});
 
-   //  	this.model = photoInstance
+    },
 
-	  //   this.$el.find('input').val('');
-	  //   this.$el.find('img').attr('src',' http://placehold.it/334x226');
+    clearPlayerInputValues: function(){
 
-  	// },
+        this.$el.find('url-input').val('');
+        this.$el.find('img').attr('src','http://placehold.it/334x222');
 
-  	createPhoto: function(){
+        $('.url-input').val('');
+        $('.name-input').val('');
+        $('.position-input').val('');
+        $('.squadNumber-input').val('');
+        $('.clubTeam-input').val('');
+      
+    },
 
-		var renderedTemplate = this.templateEdit(this.model.attributes);
-		this.$el.html(renderedTemplate);
+    // createNewPhoto: function(){
 
-		var photoInstance = new Photo();
-		this.model = photoInstance;
+    //   var objImage = new Photo($('.url-input').val(), $('.name-input').val());
+    //   var objThumbnailModel = PhotoCollection.add(objImage);
 
-		this.$el.find('input').val('');
-		this.$el.find('.main-image').attr('src',' http://placehold.it/334x226');
-	},
+    //   objThumbnailModel.save();
+    //   new ThumbnailView({model: objThumbnailModel});
 
-	destroy: function(){
+    //   this.model.save().done(function(){
+    //   that.$el.find('.new-button').html('Saved!')
+    // })
 
-		this.model.destroy().done(function(){
-			thumbnailViewInstance.remove();
-			detailViewInstance.remove();
-			detailViewInstance = new DetailView({model: photos.first()})
-		});
+    // },
 
-		// var renderedTemplate = this.templateEdit(this.model.attributes);
-		// this.$el.html(renderedTemplate);
-		// this.$el.find('.main-display-image').html();
-	},
+    createNewPhoto: function(){
+    
+        var renderedTemplate = this.templateEdit(this.model.attributes);
+        this.$el.html(renderedTemplate);
 
-	// destroy: function(){
-	// 	this.model.destroy();
-	// 	this.remove();
-	// },
+        var photoInstance = new Photo();
+        this.model = photoInstance;
+
+    },
 
 });
 
+
 // Create New Instances
+
 var photos = new PhotoCollection();
 var detailViewInstance;
 
-// var router = new appRouter();
-// Backbone.history.start();
-
-
 photos.fetch().done(function(){
-	photos.each(function(photo){
+    photos.each(function(photo){
 
-		new ThumbnailView({model: photo});
+        new ThumbnailView({model: photo});
 
-	});
+    });
 
-	detailViewInstance = new DetailView({ model: photos.first() });
+    detailViewInstance = new DetailView({ model: photos.first() });
 });
