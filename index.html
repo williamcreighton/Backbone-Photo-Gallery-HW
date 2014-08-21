@@ -1,0 +1,80 @@
+<!DOCTYPE html><html class=no-js><head><meta charset=utf-8><title>Backbone Photo Gallery HW</title><meta name=description content=""><meta name=viewport content="width=device-width"><link rel="shortcut icon" href=/6df2b309.favicon.ico><!-- Place favicon.ico and apple-touch-icon.png in the root directory --><link rel=stylesheet href=styles/6b17b143.main.css><body><!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]--><nav><a href=/#><img src="http://www.ussoccer.com/~/media/images/upload/ussoccerlogo.png?w=78&amp;h=91" alt="US Soccer" width=68 height=79 class=logo></a></nav><div class=container><div class=detail-container></div><div class=thumbnails-container></div></div><!-- <footer>
+            <a href="/#">
+            <img src="http://www.ussoccer.com/~/media/images/upload/ussoccerlogo.png?w=78&amp;h=91" alt="US Soccer" width="68" height="79" class="logo">
+            </a>
+        </footer> --><script type=text/template class=thumbnail-template><a href="#photo/<%= _id %>"><img src="<%= url %>"></a></script><script type=text/template class=detail-view-template><a href="<%= url %>">
+              <img class="detail-image" src="<%= url %>">
+            </a>
+            
+            <hr />
+            
+            <div class="tabs player-stats-tab">
+                
+               <div class="tab">
+                   <input type="radio" id="tab-1" name="tab-group-1" checked>
+                   <label class="player-stats-tab" for="tab-1">PLAYER</label>
+                   
+                    <div class="content player">
+                        <ul>
+                            <li><h2><%= name %></h2></li>
+                            <li>Position: <%= position %></li>
+                            <li>Squad Number: <%= squadNumber %></li>
+                            <li>Club Team: <%= clubTeam %></li>
+                        </ul>
+                    </div> 
+               </div>
+                
+               <div class="tab">
+                   <input type="radio" id="tab-2" name="tab-group-1">
+                   <label  class="edit-player-tab" for="tab-2">EDIT PLAYER</label>
+                   
+                    <div class="content">
+                       
+                    <div id="edit-player" class="updatePhotoModel">
+                        
+                        <input class="url-input" value="<%= url %>" placeholder="Edit Player's Photo URL">
+                        <input class="name-input" value="<%= name %>" placeholder="Enter Player's Name">
+                        <input class="position-input" value="<%= position %>" placeholder="Enter Player's Position">
+                        <input class="squadNumber-input" value="<%= squadNumber %>" placeholder="Enter Player's Squad Number">
+                        <input class="clubTeam-input" value="<%= clubTeam %>" placeholder="Enter Player's Club Team">
+
+                        <div>
+                            <span class="save-button">SAVE</span>
+                            <span class="delete-button">DELETE</span>
+                        </div>
+
+                    </div>
+                       
+                    </div> 
+               </div>
+                
+                <div class="tab">
+                   <input type="radio" id="tab-3" name="tab-group-1">
+                   <label class="add-player-tab" for="tab-3">ADD PLAYER</label>
+                 
+                   <div class="content">
+
+                   <div id="edit-player" class="createNewPhoto">
+                       
+                        <input class="url-input" value="<%= url %>" placeholder="Enter Player's Photo URL">
+                        <input class="name-input" value="<%= name %>" placeholder="Enter Player's Name">
+                        <input class="position-input" value="<%= position %>" placeholder="Enter Player's Position">
+                        <input class="squadNumber-input" value="<%= squadNumber %>" placeholder="Enter Player's Squad Number">
+                        <input class="clubTeam-input" value="<%= clubTeam %>" placeholder="Enter Player's Club Team">
+
+                        <span class="new-button">SAVE PLAYER</span>
+                          
+                   </div>
+
+                   </div>
+
+               </div>
+                
+            </div></script><script src=scripts/e0c99382.vendor.js></script><!-- Google Analytics: change UA-XXXXX-X to be your site's ID. --><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');</script><script src=scripts/56e43b56.main.js></script>
