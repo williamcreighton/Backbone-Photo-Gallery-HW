@@ -11,10 +11,11 @@ var DetailView = Backbone.View.extend({
     template: _.template($('.detail-view-template').text()),
 
     events: {
-        'click .save-button'        : 'updatePhotoModel',
-        'click .delete-button'      : 'deletePhotoModel',
-        'click .new-button'         : 'createNewPhoto',
-        'click .add-player-tab'     : 'clearPlayerInputValues',    
+        'click .save-button'         : 'updatePhotoModel',
+        'click .delete-button'       : 'deletePhotoModel',
+        'click .new-button'          : 'createNewPhoto',
+        'click .add-player-tab'      : 'clearPlayerInputValues',
+        // 'click .detail-view img'     : 'createDetailViewPhotoModal'
     },
 
     initialize: function(){
@@ -24,20 +25,11 @@ var DetailView = Backbone.View.extend({
 
         this.listenTo(this.model, 'change', this.render);
 
-        $('.detail-container').append(this.el);
+        $('.detail-container').prepend(this.el);
         this.render();
-        // var that = this;
-        // $('.add-player-tab').click(function () {
-        //   that.clearPlayerStatsValues();
-        // })
     },
 
     render: function(){
-      // if(this.model.attributes.hasOwnProperty('url')) {
-      //   var renderedTemplate = this.template(this.model.attributes);
-      //   this.$el.html(renderedTemplate);
-      //   return this; 
-      // }
 
         var renderedTemplate = this.template(this.model.attributes);
         this.$el.html(renderedTemplate);
@@ -57,6 +49,8 @@ var DetailView = Backbone.View.extend({
 
         photos.add(this.model);
 
+        
+
         this.model.save().done(function(){
 
         });
@@ -66,7 +60,7 @@ var DetailView = Backbone.View.extend({
         
         this.model.destroy();
         this.remove();
-        window.detailViewInstance = new DetailView({model: photos.first()});
+        window.detailViewInstance = new DetailView({model: photos.last()});
 
     },
 
@@ -77,25 +71,35 @@ var DetailView = Backbone.View.extend({
         this.$el.find('.name-input').val('');
         this.$el.find('.position-input').val('');
         this.$el.find('.squadNumber-input').val('');
-        this.$el.find('.clubTeam-input').val('')
+        this.$el.find('.clubTeam-input').val('');
         $('.player').empty();
+
     },
 
     createNewPhoto: function(){
-      var player = new Photo();
-
-      player.set({
-          url:          this.$el.find('.createNewPhoto .url-input').val(),
-          name:         this.$el.find('.createNewPhoto .name-input').val(),
-          position:     this.$el.find('.createNewPhoto .position-input').val(),
-          squadNumber:  this.$el.find('.createNewPhoto .squadNumber-input').val(),
-          clubTeam:     this.$el.find('.createNewPhoto .clubTeam-input').val()
-
-      })
       
-      photos.add(player);
-      player.save();
-      new ThumbnailView({model:player})
+        var player = new Photo();
+
+        player.set({
+            url:          this.$el.find('.createNewPhoto .url-input').val(),
+            name:         this.$el.find('.createNewPhoto .name-input').val(),
+            position:     this.$el.find('.createNewPhoto .position-input').val(),
+            squadNumber:  this.$el.find('.createNewPhoto .squadNumber-input').val(),
+            clubTeam:     this.$el.find('.createNewPhoto .clubTeam-input').val()
+        });
+      
+        photos.add(player);
+
+        player.save().done(function(){
+            new ThumbnailView({model:player});
+            new DetailView({model: player});
+
+        });
+
     }
+
+    // createDetailViewPhotoModal: function(){
+
+    // }
 
 });

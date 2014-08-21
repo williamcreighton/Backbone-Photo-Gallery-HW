@@ -140,20 +140,6 @@ var DetailView = Backbone.View.extend({
       
     },
 
-    // createNewPhoto: function(){
-
-    //   var objImage = new Photo($('.url-input').val(), $('.name-input').val());
-    //   var objThumbnailModel = PhotoCollection.add(objImage);
-
-    //   objThumbnailModel.save();
-    //   new ThumbnailView({model: objThumbnailModel});
-
-    //   this.model.save().done(function(){
-    //   that.$el.find('.new-button').html('Saved!')
-    // })
-
-    // },
-
     createNewPhoto: function(){
     
         var renderedTemplate = this.templateEdit(this.model.attributes);

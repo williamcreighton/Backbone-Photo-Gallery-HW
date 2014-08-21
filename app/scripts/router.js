@@ -1,14 +1,12 @@
 'use strict';
-
-var detailViewInstance = new DetailView(this.model);
  
 console.log('router script loaded')
 
-var AppRouter = Backbone.Router.extend({
+var PhotoAppRouter = Backbone.Router.extend({
  
     routes: {
         ''                           : 'renderHome',
-        'photo/:id'                  : 'renderDetailViewID'
+        'photo/:id'                  : 'renderDetailViewID',
     },
  
     initialize: function() {
@@ -56,5 +54,5 @@ var AppRouter = Backbone.Router.extend({
     }
 });
 
-var appRouter = new AppRouter();
+var myPhotoAppRouter = new PhotoAppRouter();
 Backbone.history.start();

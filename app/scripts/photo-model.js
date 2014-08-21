@@ -5,6 +5,8 @@
 console.log('Model and Collection Script Loaded');
 
 var Photo = Backbone.Model.extend({
+	
+	idAttribute: '_id',
   
 	defaults: {
 			url: '',
@@ -14,7 +16,6 @@ var Photo = Backbone.Model.extend({
 			clubTeam: ''
 		},
 
-		idAttribute: '_id'
 	});
 
 // Collection

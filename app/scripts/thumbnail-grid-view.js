@@ -19,11 +19,7 @@ var ThumbnailView = Backbone.View.extend({
         this.listenTo(this.model, 'change', this.render);
         this.listenTo(this.model, 'destroy', this.remove);
 
-        // this.listenTo(this.model, 'add', function(photo){
-        //     new Photo({model: photo});
-        // });
-
-        $('.thumbnails-container').append(this.el);
+        $('.thumbnails-container').prepend(this.el);
         this.render();
     },
 
